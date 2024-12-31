@@ -176,6 +176,10 @@ class PdfParser:
                 page.set_cropbox(cropbox)
             page = self._remove_vertical_text(page)
 
+        # Apply OCR if available
+        if self.ocr_available:
+            document = self.apply_ocr(document)
+
         # certain statements requsire garbage collection, so that duplicate objects
         # do not cause pdftotext to fail due to missing xrefs/null values
         # however, setting `garbage=2` may cause issues with other statements
